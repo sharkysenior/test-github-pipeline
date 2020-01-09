@@ -20,9 +20,9 @@ env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
-  GKE_ZONE: us-west1-a
+  GKE_ZONE: us-central1
   GKE_CLUSTER: example-gke-cluster
-  IMAGE: gke-test
+  IMAGE: helloworld-go-github
 
 jobs:
   setup-build-publish-deploy:
@@ -74,11 +74,4 @@ jobs:
     #     kubectl get services -o wide
 
     - name: Deploy service to Cloud Run
-      uses: stefda/action-cloud-run@1.0.0
-      with:
-        image: gcr.io/$GKE_PROJECT/$IMAGE:${GITHUB_SHA}
-        service: helloworld-go-github
-        project: $GKE_PROJECT
-        region: us-central1
-        env: .
-        service key: ${{ secrets.GCLOUD_AUTH }}
+      run: gcloud run deploy $IMAGE --image gcr.io/$GKE_PROJECT/$IMAGE:${GITHUB_SHA} --region us-central1 --project $GKE_PROJECT --platform managed --allow-unauthenticated
