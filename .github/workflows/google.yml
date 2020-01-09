@@ -75,4 +75,4 @@ jobs:
     #     kubectl get services -o wide
 
     - name: Deploy service to Cloud Run
-      run: gcloud run deploy $IMAGE --image gcr.io/$GKE_PROJECT/$IMAGE:${GITHUB_SHA} --region us-central1 --project $GKE_PROJECT --platform managed --allow-unauthenticated
+      run: gcloud beta run deploy $IMAGE --image gcr.io/$GKE_PROJECT/$IMAGE:${GITHUB_SHA} --region us-central1 --project $GKE_PROJECT --platform managed --allow-unauthenticated
