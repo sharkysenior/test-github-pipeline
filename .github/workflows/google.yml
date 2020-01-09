@@ -36,7 +36,7 @@ jobs:
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
-        version: '270.0.0'
+        version: '275.0.0'
         service_account_email: ${{ secrets.GKE_EMAIL }}
         service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
@@ -75,4 +75,4 @@ jobs:
     #     kubectl get services -o wide
 
     - name: Deploy service to Cloud Run
-      run: gcloud beta run deploy $IMAGE --image gcr.io/$GKE_PROJECT/$IMAGE:${GITHUB_SHA} --region us-central1 --project $GKE_PROJECT --platform managed --allow-unauthenticated
+      run: gcloud run deploy $IMAGE --image gcr.io/$GKE_PROJECT/$IMAGE:${GITHUB_SHA} --region us-central1 --project $GKE_PROJECT --platform managed --allow-unauthenticated
